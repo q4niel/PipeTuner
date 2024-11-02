@@ -1,20 +1,18 @@
 import tkinter
-from gui.tabs.tab1 import Tab1
-from gui.tabs.tab2 import Tab2
-from gui.tabs.tab3 import Tab3
+from gui.colors import Colors
+from gui.tabs.tab import Tab
+from gui.tabs.volume import VolumeTab
+from gui.tabs.devices import DevicesTab
 
-class TabMenu:
+class TabMenu():
     def __init__(self, root:tkinter.Tk):
-        self.root = root
-        self.sidebarFrame = tkinter.Frame(root, bg="#23272A")
-        self.sidebarFrame.pack(side=tkinter.LEFT, fill=tkinter.Y)
+        self.sidebarFrame = tkinter.Frame(root, bg = Colors.sidebar())
+        self.sidebarFrame.grid(row = 0, column = 0, sticky = "nsew")
 
-        self.tabFrame = tkinter.Frame(self.root, bg="#2C2F33")
-        self.tabFrame.pack(side=tkinter.RIGHT, fill=tkinter.BOTH, expand=True)
+        self.tabFrame = tkinter.Frame(root, bg = Colors.background())
+        self.tabFrame.grid(row = 0, column = 1, sticky = "nsew")
 
-        self.openTab = Tab1(self)
-        Tab2(self)
-        Tab3(self)
-
+        self.openTab = VolumeTab(self)
         self.openTab.enable()
+        DevicesTab(self)
         return
