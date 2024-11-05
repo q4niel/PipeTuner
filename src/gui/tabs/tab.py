@@ -1,38 +1,41 @@
 from abc import ABC, abstractmethod
 import tkinter
-from gui.colors import Colors
+from gui import colors
 
-class Tab(ABC):
+class XTab(ABC):
     def __init__(self, menu):
-        self.menu = menu
-        self.frame = menu.tabFrame
+        self.Menu = menu
+        self.Frame = menu.TabFrame
         button = tkinter.Button (
-            menu.sidebarFrame,
-            text = self.getButtonTitle(),
-            command = self.command,
+            menu.SidebarFrame,
+            text = self.GetButtonTitle(),
+            command = self.Command,
             font = ("Helvetica", 20, "bold"),
-            background = Colors.background(),
-            activebackground = Colors.background(),
-            foreground = Colors.accent(),
-            activeforeground = Colors.accent()
+            background = colors.KBackground,
+            activebackground = colors.KBackground,
+            foreground = colors.KAccent,
+            activeforeground = colors.KAccent
         )
         button.pack(fill=tkinter.X)
         return
 
     @abstractmethod
-    def getButtonTitle(self) -> str: return ""
+    def GetButtonTitle(self) -> str: return ""
 
     @abstractmethod
-    def enable(self) -> None: pass
+    def Enable(self) -> None: pass
 
     @abstractmethod
-    def disable(self) -> None: pass
+    def Disable(self) -> None: pass
 
-    def command(self) -> None:
-        for widget in self.frame.winfo_children():
+    @abstractmethod
+    def Refresh(self) -> None: pass
+
+    def Command(self) -> None:
+        for widget in self.Frame.winfo_children():
             widget.destroy()
-        self.menu.openTab.disable()
+        self.Menu.OpenTab.Disable()
 
-        self.menu.openTab = self
-        self.menu.openTab.enable()
+        self.Menu.OpenTab = self
+        self.Menu.OpenTab.Enable()
         return

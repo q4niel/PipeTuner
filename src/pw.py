@@ -1,9 +1,12 @@
 import shell
 
+def Info() -> str:
+    return shell.CMD("pactl list modules")
+
 #TODO: pactl device: TempDevice, shouldn't work -> index("TempD")
-def index(name:str) -> int:
+def Index(name:str) -> int:
     name = name[::-1]
-    modules:str = shell.cmd("pactl list modules")[::-1]
+    modules:str = shell.CMD("pactl list modules")[::-1]
     nameBuffer:str = ""
     moduleBuffer:str = ""
     index:str = ""
@@ -30,13 +33,12 @@ def index(name:str) -> int:
 
     return -1 if index == "" else int(index[::-1])
 
-def mk(name:str) -> None:
-    if index(name) == -1:
-        shell.cmd(f"pactl load-module module-null-sink sink_name=\"{name}\"")
-    return
+def Make(name:str) -> str:
+    if Index(name) != -1: return "None"
+    return shell.CMD(f"pactl load-module module-null-sink sink_name=\"{name}\"")
 
-def rm(name:str) -> None:
-    i:int = index(name)
+def Remove(name:str) -> None:
+    i:int = Index(name)
     if i != -1:
-        shell.cmd(f"pactl unload-module {i}")
+        shell.CMD(f"pactl unload-module {i}")
     return

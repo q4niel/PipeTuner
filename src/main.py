@@ -1,5 +1,6 @@
 import tkinter
-from gui.tab_menu import TabMenu
+from registry import XRegistry
+from gui.tab_menu import XTabMenu
 
 def main() -> None:
     root = tkinter.Tk()
@@ -7,7 +8,10 @@ def main() -> None:
     root.rowconfigure(0, weight = 1)
     root.columnconfigure(0, weight = 1)
     root.columnconfigure(1, weight = 50)
-    menu = TabMenu(root)
+
+    XRegistry.ZInit("config.json")
+    menu = XTabMenu(root)
+
     root.mainloop()
     return
 

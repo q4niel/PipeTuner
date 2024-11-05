@@ -1,9 +1,4 @@
-class Colors():
-    @staticmethod
-    def accent() -> str: return "#99AAB5"
-
-    @staticmethod
-    def background() -> str: return "#2C2F33"
-
-    @staticmethod
-    def sidebar() -> str: return "#23272A"
+KAccent:str = "#99AAB5"
+KBackground:str = "#2C2F33"
+KInnerSidebar:str = "#23272A"
+KSidebar:str = "#202225"

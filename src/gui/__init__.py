@@ -1,1 +1,1 @@
-from gui.tab_menu import TabMenu
+from gui.tab_menu import XTabMenu

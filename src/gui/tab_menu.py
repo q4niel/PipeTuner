@@ -1,18 +1,30 @@
 import tkinter
-from gui.colors import Colors
-from gui.tabs.tab import Tab
-from gui.tabs.volume import VolumeTab
-from gui.tabs.devices import DevicesTab
+from gui import colors
+from gui.tabs.tab import XTab
+from gui.tabs.volume import XVolumeTab
+from gui.tabs.device import XDeviceTab
 
-class TabMenu():
+class XTabMenu():
     def __init__(self, root:tkinter.Tk):
-        self.sidebarFrame = tkinter.Frame(root, bg = Colors.sidebar())
-        self.sidebarFrame.grid(row = 0, column = 0, sticky = "nsew")
+        self.SidebarFrame = tkinter.Frame(root, bg = colors.KSidebar)
+        self.SidebarFrame.grid(row = 0, column = 0, sticky = "nsew")
 
-        self.tabFrame = tkinter.Frame(root, bg = Colors.background())
-        self.tabFrame.grid(row = 0, column = 1, sticky = "nsew")
+        self.TabFrame = tkinter.Frame(root, bg = colors.KBackground)
+        self.TabFrame.grid(row = 0, column = 1, sticky = "nsew")
 
-        self.openTab = VolumeTab(self)
-        self.openTab.enable()
-        DevicesTab(self)
+        self.OpenTab = XVolumeTab(self)
+        self.OpenTab.Enable()
+        XDeviceTab(self)
+
+        refreshButton = tkinter.Button (
+            self.SidebarFrame,
+            text = "Refresh",
+            command = lambda: self.OpenTab.Refresh(),
+            font = ("Helvetica", 20, "bold"),
+            background = colors.KBackground,
+            activebackground = colors.KBackground,
+            foreground = colors.KAccent,
+            activeforeground = colors.KAccent
+        )
+        refreshButton.pack(side = tkinter.BOTTOM, fill = tkinter.X)
         return

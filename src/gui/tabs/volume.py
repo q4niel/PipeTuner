@@ -1,72 +1,75 @@
-from gui.tabs.tab import Tab
+from gui.tabs.tab import XTab
 import tkinter
-from gui.colors import Colors
+from gui import colors
 
-class VolumeTab(Tab):
-    def getButtonTitle(self) -> str: return "Volume"
+class XVolumeTab(XTab):
+    def GetButtonTitle(self) -> str: return "Volume"
 
-    def enable(self) -> None:
-        self.contentFrame = tkinter.Frame(self.frame, bg = Colors.background())
-        self.contentFrame.rowconfigure(0, weight = 1)
-        self.contentFrame.columnconfigure(0, weight = 1)
-        self.contentFrame.columnconfigure(1, weight = 1)
-        self.contentFrame.columnconfigure(2, weight = 1)
-        self.contentFrame.pack(side=tkinter.BOTTOM, fill=tkinter.BOTH, expand=True)
+    def Enable(self) -> None:
+        self.ContentFrame = tkinter.Frame(self.Frame, bg = colors.KBackground)
+        self.ContentFrame.rowconfigure(0, weight = 1)
+        self.ContentFrame.columnconfigure(0, weight = 1)
+        self.ContentFrame.columnconfigure(1, weight = 1)
+        self.ContentFrame.columnconfigure(2, weight = 1)
+        self.ContentFrame.pack(side=tkinter.BOTTOM, fill=tkinter.BOTH, expand=True)
 
-        self.sliders = [
-            Slider(self.contentFrame, "Master", 0),
-            Slider(self.contentFrame, "Default", 1),
-            Slider(self.contentFrame, "Media", 2)
+        self.Sliders = [
+            XSlider(self.ContentFrame, "Master", 0),
+            XSlider(self.ContentFrame, "Default", 1),
+            XSlider(self.ContentFrame, "Media", 2)
         ]
 
         return
 
-    def disable(self) -> None:
-        for slider in self.sliders:
-            slider.destroy()
+    def Disable(self) -> None:
+        for slider in self.Sliders:
+            slider.Destroy()
         return
 
-class Slider:
+    def Refresh(self) -> None:
+        return
+
+class XSlider:
     def __init__(self, contentFrame, text:str, column:int):
-        self.sliderFrame = tkinter.Frame(contentFrame, background = Colors.background())
-        self.sliderFrame.rowconfigure(0, weight = 10)
-        self.sliderFrame.rowconfigure(1, weight = 1)
-        self.sliderFrame.rowconfigure(2, weight = 50)
-        self.sliderFrame.columnconfigure(0, weight = 1)
-        self.sliderFrame.grid(row = 0, column = column, sticky = "nsew", padx = 20)
+        self.SliderFrame = tkinter.Frame(contentFrame, background = colors.KBackground)
+        self.SliderFrame.rowconfigure(0, weight = 10)
+        self.SliderFrame.rowconfigure(1, weight = 1)
+        self.SliderFrame.rowconfigure(2, weight = 50)
+        self.SliderFrame.columnconfigure(0, weight = 1)
+        self.SliderFrame.grid(row = 0, column = column, sticky = "nsew", padx = 20)
 
-        self.value = tkinter.IntVar(value = 50)
+        self.Value = tkinter.IntVar(value = 50)
 
-        self.text = tkinter.Label(self.sliderFrame, text = text, bg = Colors.background(), fg = Colors.accent(), font = ("Helvetica", 30, "bold"))
-        self.text.grid(row = 0, column = 0, sticky = "ns")
+        self.Text = tkinter.Label(self.SliderFrame, text = text, bg = colors.KBackground, fg = colors.KAccent, font = ("Helvetica", 30, "bold"))
+        self.Text.grid(row = 0, column = 0, sticky = "ns")
 
-        self.visualValue = tkinter.Label(self.sliderFrame, text = self.value.get(), bg = Colors.background(), fg = Colors.accent(), font = ("Helvetica", 20, "bold"))
-        self.visualValue.grid(row = 1, column = 0, sticky = "ns")
+        self.VisualValue = tkinter.Label(self.SliderFrame, text = self.Value.get(), bg = colors.KBackground, fg = colors.KAccent, font = ("Helvetica", 20, "bold"))
+        self.VisualValue.grid(row = 1, column = 0, sticky = "ns")
 
-        self.scale = tkinter.Scale (
-            self.sliderFrame,
-            variable = self.value,
+        self.Scale = tkinter.Scale (
+            self.SliderFrame,
+            variable = self.Value,
             showvalue = False,
-            command = self.cmd,
+            command = self.Command,
             from_ = 100,
             to = 0,
 
             width = 100,
             sliderlength = 100,
             sliderrelief = "flat",
-            background = Colors.accent(),
-            troughcolor = Colors.background()
+            background = colors.KAccent,
+            troughcolor = colors.KBackground
         )
-        self.scale.grid(row = 2, column = 0, sticky = "ns")
+        self.Scale.grid(row = 2, column = 0, sticky = "ns")
         return
 
-    def getValue(self) -> int:
-        return self.value.get()
+    def GetValue(self) -> int:
+        return self.Value.get()
 
-    def cmd(self, value) -> None:
-        self.visualValue.configure(text = self.getValue())
+    def Command(self, value) -> None:
+        self.VisualValue.configure(text = self.GetValue())
         return
 
-    def destroy(self):
-        self.scale.destroy()
+    def Destroy(self):
+        self.Scale.destroy()
         return
